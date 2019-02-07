@@ -69,11 +69,15 @@ module Enumerable
        count   
     end
 
-    def my_map
+    def my_map(proc=nil)
       array = []
       i = 0
         until self[i] == nil
-          array.push(yield(self[i], i))
+          if proc
+            array.push(proc.call(self[i])) 
+          else
+            array.push(yield(self[i], i))
+          end
           i+=1
         end
         return array
@@ -81,40 +85,57 @@ module Enumerable
     end   
 
     def my_inject
-        acc = 0
-        
-        self.my_each do |element|
-            acc = yield(acc, element)
+        acc = self[0]
+        i = 1
+        until self[i] == nil
+          acc = yield(acc, self[i])
+          i+=1
         end
-        
         acc
     end
 
     def multiply_els
-      
-
+      my_inject{|acc, element| acc*element}
     end
       
  end
- #puts 'Each:'
- arr = [1,2,4,5,6,2,2,5]
- #arr.my_each {|element| puts element*2}
- #puts 'Each with index:'
- #arr.my_each_with_index {|element, index| puts index*2}
- #puts 'Select:'
- #puts arr.my_select{|element| element == 2}
- #puts 'all?:'
- #puts arr.my_all?{|element| element<10}
- #puts 'any?:'
- #puts arr.my_any?{|element| element>6}
+ 
+arr = [1,2,3,4,5,6]
+puts 'Each:'
+arr.my_each {|element| puts element*2}
 
- #puts 'none?:'
- #puts arr.my_none?{|element| element ==1}
+puts 'Each with index:'
+arr.my_each_with_index {|element, index| puts index*2}
 
- #puts 'count:'
- #puts arr.count(5)
+puts 'Select:'
+puts arr.my_select{|element| element == 2}
+
+puts 'all?:'
+puts arr.my_all?{|element| element<10}
+
+puts 'any?:'
+puts arr.my_any?{|element| element>6}
+
+puts 'none?:'
+puts arr.my_none?{|element| element ==1}
+
+puts 'count:'
+puts arr.count(5)
 
 puts 'inject:'
 puts arr.my_inject{|acc,element| acc + element}
+
+puts 'multiply_els:'
+puts arr.multiply_els
+
+puts 'my_map with proc:'
+puts arr.my_map(Proc.new{|element|element+1})
+
+puts 'my_map with block:'
+puts arr.my_map{|element|element+2}
+
+
+
+
 
 
