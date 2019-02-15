@@ -64,7 +64,7 @@ module Enumerable
     def my_count(val)
       count = 0
        self.my_each do |item|
-          if item == value
+          if item == val
             count+=1
           end  
        end    
@@ -102,42 +102,3 @@ module Enumerable
       
  end
  
-arr = [1,2,3,4,5,6]
-puts 'Each:'
-arr.my_each {|element| puts element*2}
-
-puts 'Each with index:'
-arr.my_each_with_index {|element, index| puts index*2}
-
-puts 'Select:'
-puts arr.my_select{|element| element == 2}
-
-puts 'all?:'
-puts arr.my_all?{|element| element<10}
-
-puts 'any?:'
-puts arr.my_any?{|element| element>6}
-
-puts 'none?:'
-puts arr.my_none?{|element| element ==1}
-
-puts 'count:'
-puts arr.count(5)
-
-puts 'inject:'
-puts arr.my_inject{|acc,element| acc + element}
-
-puts 'multiply_els:'
-puts arr.multiply_els
-
-puts 'my_map with proc:'
-puts arr.my_map(Proc.new{|element|element+1})
-
-puts 'my_map with block:'
-puts arr.my_map{|element|element+2}
-
-
-
-
-
-

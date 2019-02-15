@@ -1,7 +1,5 @@
 require "enumerables"
 
-# arr = [1,2,3,4,5]
-
 RSpec.describe Enumerable do
 	let(:array){ [1,2,3,4,5]}
 	describe '#my_each' do
@@ -54,5 +52,30 @@ RSpec.describe Enumerable do
 			expect(array.my_inject{|acc, val| acc * val }).to eql(120)
 		end
 	end
+
+
+   describe "my_none?" do
+		it "returns false if the condition is satisfied " do
+			expect(array.my_none?{|val| val == 5 }).to eql(false)
+		end
+   end
+
+    describe "my_count?" do
+		it "returns the count of the array " do
+			expect(array.my_count(3)).to eql(1)
+		end
+   end 
+   
+   describe "my_map" do
+		it "returns  " do
+			expect(array.my_map{|val| val * 2 }).to eql([2,4,6,8,10])
+		end
+   end	
+   describe "multiply_els" do
+		it "returns an accumutator of elements of the array  " do
+			expect(array.multiply_els).to eql(120)
+		end
+   end
+
 
 end
